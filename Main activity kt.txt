@@ -1,0 +1,62 @@
+package com.example.calendarapp
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.CalendarView
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val calendarView = findViewById<CalendarView>(R.id.calendarView)
+        val textViewSelectedDate = findViewById<TextView>(R.id.textViewSelectedDate)
+        val loginLayout = findViewById<View>(R.id.loginLayout)
+        val registerLayout = findViewById<View>(R.id.registerLayout)
+        val textViewSwitch = findViewById<TextView>(R.id.textViewSwitch)
+
+        // Click listener for switching between login and register views
+        textViewSwitch.setOnClickListener {
+            if (loginLayout.visibility == View.VISIBLE) {
+                loginLayout.visibility = View.GONE
+                registerLayout.visibility = View.VISIBLE
+                textViewSwitch.text = "Already have an account? Login"
+            } else {
+                loginLayout.visibility = View.VISIBLE
+                registerLayout.visibility = View.GONE
+                textViewSwitch.text = "Don't have an account? Register"
+            }
+        }
+
+        // Click listener for login button
+        val buttonLogin = findViewById<Button>(R.id.buttonLogin)
+        buttonLogin.setOnClickListener {
+            // Your login logic here
+            val email = findViewById<EditText>(R.id.editTextEmailLogin).text.toString()
+            val password = findViewById<EditText>(R.id.editTextPasswordLogin).text.toString()
+            // Validate email and password, then proceed with login
+        }
+
+        // Click listener for register button
+        val buttonRegister = findViewById<Button>(R.id.buttonRegister)
+        buttonRegister.setOnClickListener {
+            // Your registration logic here
+            val email = findViewById<EditText>(R.id.editTextEmailRegister).text.toString()
+            val password = findViewById<EditText>(R.id.editTextPasswordRegister).text.toString()
+            val confirmPassword = findViewById<EditText>(R.id.editTextConfirmPassword).text.toString()
+            // Validate email, password, and confirmPassword, then proceed with registration
+        }
+
+        // Example of handling calendar selection
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            val selectedDate = "$dayOfMonth/${month + 1}/$year"
+            textViewSelectedDate.text = "Selected Date: $selectedDate"
+            textViewSelectedDate.visibility = View.VISIBLE
+        }
+    }
+}
